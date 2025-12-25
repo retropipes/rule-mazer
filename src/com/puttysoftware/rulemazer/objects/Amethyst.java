@@ -14,27 +14,26 @@ public class Amethyst extends GenericScoreIncreaser {
 
     // Constructors
     public Amethyst() {
-        super();
+	super();
     }
 
     @Override
     public String getName() {
-        return "Amethyst";
+	return "Amethyst";
     }
 
     @Override
     public String getPluralName() {
-        return "Amethysts";
+	return "Amethysts";
     }
 
     @Override
     public void postMoveActionHook() {
-        Main.getApplication().getGameManager()
-                .addToScore(Amethyst.SCORE_INCREASE);
+	Main.getApplication().getGameManager().addToScore(Amethyst.SCORE_INCREASE);
     }
 
     @Override
     public String getDescription() {
-        return "Amethysts increase your score when picked up.";
+	return "Amethysts increase your score when picked up.";
     }
 }

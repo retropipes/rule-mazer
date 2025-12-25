@@ -11,21 +11,20 @@ import com.puttysoftware.rulemazer.objects.PoisonousAmulet;
 public class Poisonous extends MazeEffect {
     // Constructor
     public Poisonous(final int newRounds) {
-        super("Poisonous", newRounds);
+	super("Poisonous", newRounds);
     }
 
     @Override
     public void customExtendLogic() {
-        // Apply the effect
-        Main.getApplication().getMazeManager().getMaze().doPoisonousAmulet();
+	// Apply the effect
+	Main.getApplication().getMazeManager().getMaze().doPoisonousAmulet();
     }
 
     @Override
     public void customTerminateLogic() {
-        // Remove item that granted effect from inventory
-        Main.getApplication().getGameManager().getObjectInventory()
-                .removeItem(new PoisonousAmulet());
-        // Undo the effect
-        Main.getApplication().getMazeManager().getMaze().undoPoisonAmulets();
+	// Remove item that granted effect from inventory
+	Main.getApplication().getGameManager().getObjectInventory().removeItem(new PoisonousAmulet());
+	// Undo the effect
+	Main.getApplication().getMazeManager().getMaze().undoPoisonAmulets();
     }
 }

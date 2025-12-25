@@ -11,32 +11,29 @@ import com.puttysoftware.rulemazer.generic.GenericBoots;
 public class HotBoots extends GenericBoots {
     // Constructors
     public HotBoots() {
-        super();
+	super();
     }
 
     @Override
     public String getName() {
-        return "Hot Boots";
+	return "Hot Boots";
     }
 
     @Override
     public String getPluralName() {
-        return "Pairs of Hot Boots";
+	return "Pairs of Hot Boots";
     }
 
     @Override
     public String getDescription() {
-        return "Hot Boots transform any ground into Hot Rock as you walk. Note that you can only wear one pair of boots at once.";
+	return "Hot Boots transform any ground into Hot Rock as you walk. Note that you can only wear one pair of boots at once.";
     }
 
     @Override
     public void stepAction() {
-        final int x = Main.getApplication().getGameManager().getPlayerManager()
-                .getPlayerLocationX();
-        final int y = Main.getApplication().getGameManager().getPlayerManager()
-                .getPlayerLocationY();
-        final int z = Main.getApplication().getGameManager().getPlayerManager()
-                .getPlayerLocationZ();
-        Main.getApplication().getMazeManager().getMaze().hotGround(x, y, z);
+	final int x = Main.getApplication().getGameManager().getPlayerManager().getPlayerLocationX();
+	final int y = Main.getApplication().getGameManager().getPlayerManager().getPlayerLocationY();
+	final int z = Main.getApplication().getGameManager().getPlayerManager().getPlayerLocationZ();
+	Main.getApplication().getMazeManager().getMaze().hotGround(x, y, z);
     }
 }

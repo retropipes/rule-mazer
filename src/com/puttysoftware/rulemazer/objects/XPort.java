@@ -10,6 +10,6 @@ import com.puttysoftware.rulemazer.generic.GenericPort;
 public class XPort extends GenericPort {
     // Constructors
     public XPort() {
-        super(new XPlug(), 'X');
+	super(new XPlug(), 'X');
     }
 }

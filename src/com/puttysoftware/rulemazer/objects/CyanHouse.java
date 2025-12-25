@@ -14,31 +14,29 @@ import com.puttysoftware.rulemazer.resourcemanagers.SoundManager;
 public class CyanHouse extends FinishTo {
     // Constructors
     public CyanHouse() {
-        super();
+	super();
     }
 
     // Scriptability
     @Override
-    public void postMoveAction(final boolean ie, final int dirX, final int dirY,
-            final ObjectInventory inv) {
-        final Application app = Main.getApplication();
-        SoundManager.playSound(SoundConstants.SOUND_CATEGORY_SOLVING_MAZE,
-                SoundConstants.SOUND_UP);
-        app.getGameManager().goToLevel(this.getDestinationLevel());
+    public void postMoveAction(final boolean ie, final int dirX, final int dirY, final ObjectInventory inv) {
+	final Application app = Main.getApplication();
+	SoundManager.playSound(SoundConstants.SOUND_CATEGORY_SOLVING_MAZE, SoundConstants.SOUND_UP);
+	app.getGameManager().goToLevel(this.getDestinationLevel());
     }
 
     @Override
     public String getName() {
-        return "Cyan House";
+	return "Cyan House";
     }
 
     @Override
     public String getPluralName() {
-        return "Cyan Houses";
+	return "Cyan Houses";
     }
 
     @Override
     public String getDescription() {
-        return "Cyan Houses send you inside when walked on.";
+	return "Cyan Houses send you inside when walked on.";
     }
 }

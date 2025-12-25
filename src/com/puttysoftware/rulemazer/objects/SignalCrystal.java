@@ -10,6 +10,6 @@ import com.puttysoftware.rulemazer.generic.GenericProgrammableKey;
 public class SignalCrystal extends GenericProgrammableKey {
     // Constructors
     public SignalCrystal() {
-        super("Signal");
+	super("Signal");
     }
 }

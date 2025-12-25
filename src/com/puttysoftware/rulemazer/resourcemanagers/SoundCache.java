@@ -16,54 +16,52 @@ public class SoundCache {
 
     // Methods
     static Sound getCachedSound(final String name) {
-        if (!SoundCache.isInCache(name)) {
-            final Sound snd = SoundManager.getUncachedSound(name);
-            SoundCache.addToCache(name, snd);
-        }
-        for (int x = 0; x < SoundCache.nameCache.length; x++) {
-            if (name.equals(SoundCache.nameCache[x])) {
-                return SoundCache.cache[x];
-            }
-        }
-        return null;
+	if (!SoundCache.isInCache(name)) {
+	    final Sound snd = SoundManager.getUncachedSound(name);
+	    SoundCache.addToCache(name, snd);
+	}
+	for (int x = 0; x < SoundCache.nameCache.length; x++) {
+	    if (name.equals(SoundCache.nameCache[x])) {
+		return SoundCache.cache[x];
+	    }
+	}
+	return null;
     }
 
     private static void expandCache() {
-        final Sound[] tempCache = new Sound[SoundCache.cache.length
-                + SoundCache.CACHE_INCREMENT];
-        final String[] tempNameCache = new String[SoundCache.cache.length
-                + SoundCache.CACHE_INCREMENT];
-        for (int x = 0; x < SoundCache.CACHE_SIZE; x++) {
-            tempCache[x] = SoundCache.cache[x];
-            tempNameCache[x] = SoundCache.nameCache[x];
-        }
-        SoundCache.cache = tempCache;
-        SoundCache.nameCache = tempNameCache;
+	final Sound[] tempCache = new Sound[SoundCache.cache.length + SoundCache.CACHE_INCREMENT];
+	final String[] tempNameCache = new String[SoundCache.cache.length + SoundCache.CACHE_INCREMENT];
+	for (int x = 0; x < SoundCache.CACHE_SIZE; x++) {
+	    tempCache[x] = SoundCache.cache[x];
+	    tempNameCache[x] = SoundCache.nameCache[x];
+	}
+	SoundCache.cache = tempCache;
+	SoundCache.nameCache = tempNameCache;
     }
 
     private static void addToCache(final String name, final Sound snd) {
-        if (SoundCache.cache == null || SoundCache.nameCache == null) {
-            SoundCache.cache = new Sound[SoundCache.CACHE_INCREMENT];
-            SoundCache.nameCache = new String[SoundCache.CACHE_INCREMENT];
-        }
-        if (SoundCache.CACHE_SIZE == SoundCache.cache.length) {
-            SoundCache.expandCache();
-        }
-        SoundCache.cache[SoundCache.CACHE_SIZE] = snd;
-        SoundCache.nameCache[SoundCache.CACHE_SIZE] = name;
-        SoundCache.CACHE_SIZE++;
+	if (SoundCache.cache == null || SoundCache.nameCache == null) {
+	    SoundCache.cache = new Sound[SoundCache.CACHE_INCREMENT];
+	    SoundCache.nameCache = new String[SoundCache.CACHE_INCREMENT];
+	}
+	if (SoundCache.CACHE_SIZE == SoundCache.cache.length) {
+	    SoundCache.expandCache();
+	}
+	SoundCache.cache[SoundCache.CACHE_SIZE] = snd;
+	SoundCache.nameCache[SoundCache.CACHE_SIZE] = name;
+	SoundCache.CACHE_SIZE++;
     }
 
     private static boolean isInCache(final String name) {
-        if (SoundCache.cache == null || SoundCache.nameCache == null) {
-            SoundCache.cache = new Sound[SoundCache.CACHE_INCREMENT];
-            SoundCache.nameCache = new String[SoundCache.CACHE_INCREMENT];
-        }
-        for (int x = 0; x < SoundCache.CACHE_SIZE; x++) {
-            if (name.equals(SoundCache.nameCache[x])) {
-                return true;
-            }
-        }
-        return false;
+	if (SoundCache.cache == null || SoundCache.nameCache == null) {
+	    SoundCache.cache = new Sound[SoundCache.CACHE_INCREMENT];
+	    SoundCache.nameCache = new String[SoundCache.CACHE_INCREMENT];
+	}
+	for (int x = 0; x < SoundCache.CACHE_SIZE; x++) {
+	    if (name.equals(SoundCache.nameCache[x])) {
+		return true;
+	    }
+	}
+	return false;
     }
 }

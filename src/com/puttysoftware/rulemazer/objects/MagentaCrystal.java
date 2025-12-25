@@ -10,6 +10,6 @@ import com.puttysoftware.rulemazer.generic.GenericProgrammableKey;
 public class MagentaCrystal extends GenericProgrammableKey {
     // Constructors
     public MagentaCrystal() {
-        super("Magenta");
+	super("Magenta");
     }
 }

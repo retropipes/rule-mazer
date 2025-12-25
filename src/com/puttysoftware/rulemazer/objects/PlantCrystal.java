@@ -10,6 +10,6 @@ import com.puttysoftware.rulemazer.generic.GenericProgrammableKey;
 public class PlantCrystal extends GenericProgrammableKey {
     // Constructors
     public PlantCrystal() {
-        super("Plant");
+	super("Plant");
     }
 }

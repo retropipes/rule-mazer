@@ -14,31 +14,29 @@ import com.puttysoftware.rulemazer.resourcemanagers.SoundManager;
 public class WhiteHouse extends FinishTo {
     // Constructors
     public WhiteHouse() {
-        super();
+	super();
     }
 
     // Scriptability
     @Override
-    public void postMoveAction(final boolean ie, final int dirX, final int dirY,
-            final ObjectInventory inv) {
-        final Application app = Main.getApplication();
-        SoundManager.playSound(SoundConstants.SOUND_CATEGORY_SOLVING_MAZE,
-                SoundConstants.SOUND_UP);
-        app.getGameManager().goToLevel(this.getDestinationLevel());
+    public void postMoveAction(final boolean ie, final int dirX, final int dirY, final ObjectInventory inv) {
+	final Application app = Main.getApplication();
+	SoundManager.playSound(SoundConstants.SOUND_CATEGORY_SOLVING_MAZE, SoundConstants.SOUND_UP);
+	app.getGameManager().goToLevel(this.getDestinationLevel());
     }
 
     @Override
     public String getName() {
-        return "White House";
+	return "White House";
     }
 
     @Override
     public String getPluralName() {
-        return "White Houses";
+	return "White Houses";
     }
 
     @Override
     public String getDescription() {
-        return "White Houses send you inside when walked on.";
+	return "White Houses send you inside when walked on.";
     }
 }

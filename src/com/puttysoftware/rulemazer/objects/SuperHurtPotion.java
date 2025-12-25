@@ -11,27 +11,26 @@ import com.puttysoftware.rulemazer.generic.GenericPotion;
 public class SuperHurtPotion extends GenericPotion {
     // Constructors
     public SuperHurtPotion() {
-        super(false);
+	super(false);
     }
 
     @Override
     public String getName() {
-        return "Super Hurt Potion";
+	return "Super Hurt Potion";
     }
 
     @Override
     public String getPluralName() {
-        return "Super Hurt Potions";
+	return "Super Hurt Potions";
     }
 
     @Override
     public int getEffectValue() {
-        return -(Main.getApplication().getMazeManager().getMaze().getCurrentHP()
-                - 1);
+	return -(Main.getApplication().getMazeManager().getMaze().getCurrentHP() - 1);
     }
 
     @Override
     public String getDescription() {
-        return "Super Hurt Potions bring you to the brink of death when picked up.";
+	return "Super Hurt Potions bring you to the brink of death when picked up.";
     }
 }

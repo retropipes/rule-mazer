@@ -11,10 +11,10 @@ public class InvalidRuleSetException extends Exception {
 
     // Constructors
     public InvalidRuleSetException() {
-        super();
+	super();
     }
 
     public InvalidRuleSetException(final String msg) {
-        super(msg);
+	super(msg);
     }
 }

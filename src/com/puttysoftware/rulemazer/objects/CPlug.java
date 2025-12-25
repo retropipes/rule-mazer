@@ -10,6 +10,6 @@ import com.puttysoftware.rulemazer.generic.GenericPlug;
 public class CPlug extends GenericPlug {
     // Constructors
     public CPlug() {
-        super('C');
+	super('C');
     }
 }

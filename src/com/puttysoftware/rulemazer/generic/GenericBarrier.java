@@ -18,20 +18,17 @@ public abstract class GenericBarrier extends GenericWall {
 
     // Constructors
     protected GenericBarrier() {
-        super();
+	super();
     }
 
     @Override
-    public void moveFailedAction(final boolean ie, final int dirX,
-            final int dirY, final ObjectInventory inv) {
-        // Display impassable barrier message
-        final Application app = Main.getApplication();
-        Main.getApplication().showMessage("The barrier is impassable!");
-        SoundManager.playSound(SoundConstants.SOUND_CATEGORY_SOLVING_MAZE,
-                SoundConstants.SOUND_BARRIER);
-        // Hurt the player for trying to cross the barrier
-        app.getMazeManager().getMaze()
-                .doDamagePercentage(GenericBarrier.BARRIER_DAMAGE_PERCENT);
+    public void moveFailedAction(final boolean ie, final int dirX, final int dirY, final ObjectInventory inv) {
+	// Display impassable barrier message
+	final Application app = Main.getApplication();
+	Main.getApplication().showMessage("The barrier is impassable!");
+	SoundManager.playSound(SoundConstants.SOUND_CATEGORY_SOLVING_MAZE, SoundConstants.SOUND_BARRIER);
+	// Hurt the player for trying to cross the barrier
+	app.getMazeManager().getMaze().doDamagePercentage(GenericBarrier.BARRIER_DAMAGE_PERCENT);
     }
 
     @Override
@@ -39,12 +36,12 @@ public abstract class GenericBarrier extends GenericWall {
 
     @Override
     public int getLayer() {
-        return MazeConstants.LAYER_OBJECT;
+	return MazeConstants.LAYER_OBJECT;
     }
 
     @Override
     protected void setTypes() {
-        this.type.set(TypeConstants.TYPE_BARRIER);
-        this.type.set(TypeConstants.TYPE_WALL);
+	this.type.set(TypeConstants.TYPE_BARRIER);
+	this.type.set(TypeConstants.TYPE_WALL);
     }
 }

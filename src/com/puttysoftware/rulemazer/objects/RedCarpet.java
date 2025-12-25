@@ -10,6 +10,6 @@ import com.puttysoftware.rulemazer.generic.GenericCarpet;
 public class RedCarpet extends GenericCarpet {
     // Constructors
     public RedCarpet() {
-        super("Red");
+	super("Red");
     }
 }

@@ -34,117 +34,116 @@ public class GUIManager {
 
     // Constructors
     public GUIManager() {
-        this.cHandler = new CloseHandler();
-        this.guiFrame = new JFrame("RuleMazer");
-        this.guiPane = this.guiFrame.getContentPane();
-        this.guiFrame
-                .setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        this.guiFrame.setLayout(new GridLayout(1, 1));
-        this.logoLabel = new JLabel("", null, SwingConstants.CENTER);
-        this.logoLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
-        this.guiPane.add(this.logoLabel);
-        this.guiFrame.setResizable(false);
-        this.guiFrame.addWindowListener(this.cHandler);
+	this.cHandler = new CloseHandler();
+	this.guiFrame = new JFrame("RuleMazer");
+	this.guiPane = this.guiFrame.getContentPane();
+	this.guiFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+	this.guiFrame.setLayout(new GridLayout(1, 1));
+	this.logoLabel = new JLabel("", null, SwingConstants.CENTER);
+	this.logoLabel.setBorder(new EmptyBorder(0, 0, 0, 0));
+	this.guiPane.add(this.logoLabel);
+	this.guiFrame.setResizable(false);
+	this.guiFrame.addWindowListener(this.cHandler);
     }
 
     // Methods
     public JFrame getGUIFrame() {
-        if (this.guiFrame.isVisible()) {
-            return this.guiFrame;
-        } else {
-            return null;
-        }
+	if (this.guiFrame.isVisible()) {
+	    return this.guiFrame;
+	} else {
+	    return null;
+	}
     }
 
     public void showGUI() {
-        final Application app = Main.getApplication();
-        app.setInGUI(true);
-        this.guiFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
-        this.guiFrame.setVisible(true);
-        app.getMenuManager().setMainMenus();
-        app.getMenuManager().checkFlags();
+	final Application app = Main.getApplication();
+	app.setInGUI(true);
+	this.guiFrame.setJMenuBar(app.getMenuManager().getMainMenuBar());
+	this.guiFrame.setVisible(true);
+	app.getMenuManager().setMainMenus();
+	app.getMenuManager().checkFlags();
     }
 
     public void hideGUI() {
-        final Application app = Main.getApplication();
-        app.setInGUI(false);
-        this.guiFrame.setVisible(false);
+	final Application app = Main.getApplication();
+	app.setInGUI(false);
+	this.guiFrame.setVisible(false);
     }
 
     public void hideGUITemporarily() {
-        this.guiFrame.setVisible(false);
+	this.guiFrame.setVisible(false);
     }
 
     public void updateLogo() {
-        final BufferedImageIcon logo = GraphicsManager.getLogo();
-        this.logoLabel.setIcon(logo);
-        final Image iconlogo = Main.getApplication().getIconLogo();
-        this.guiFrame.setIconImage(iconlogo);
-        this.guiFrame.pack();
+	final BufferedImageIcon logo = GraphicsManager.getLogo();
+	this.logoLabel.setIcon(logo);
+	final Image iconlogo = Main.getApplication().getIconLogo();
+	this.guiFrame.setIconImage(iconlogo);
+	this.guiFrame.pack();
     }
 
     public boolean quitHandler() {
-        final MazeManager mm = Main.getApplication().getMazeManager();
-        boolean saved = true;
-        int status = JOptionPane.DEFAULT_OPTION;
-        if (mm.getDirty()) {
-            status = mm.showSaveDialog();
-            if (status == JOptionPane.YES_OPTION) {
-                saved = mm.saveMaze();
-            } else if (status == JOptionPane.CANCEL_OPTION) {
-                saved = false;
-            } else {
-                mm.setDirty(false);
-            }
-        }
-        if (saved) {
-            PreferencesManager.writePrefs();
-            // Run cleanup task
-            new TempDirCleanup().start();
-        }
-        return saved;
+	final MazeManager mm = Main.getApplication().getMazeManager();
+	boolean saved = true;
+	int status = JOptionPane.DEFAULT_OPTION;
+	if (mm.getDirty()) {
+	    status = mm.showSaveDialog();
+	    if (status == JOptionPane.YES_OPTION) {
+		saved = mm.saveMaze();
+	    } else if (status == JOptionPane.CANCEL_OPTION) {
+		saved = false;
+	    } else {
+		mm.setDirty(false);
+	    }
+	}
+	if (saved) {
+	    PreferencesManager.writePrefs();
+	    // Run cleanup task
+	    new TempDirCleanup().start();
+	}
+	return saved;
     }
 
     private class CloseHandler implements WindowListener {
-        public CloseHandler() {
-            // TODO Auto-generated constructor stub
-        }
+	public CloseHandler() {
+	    // TODO Auto-generated constructor stub
+	}
 
-        @Override
-        public void windowActivated(final WindowEvent arg0) {
-            // Do nothing
-        }
+	@Override
+	public void windowActivated(final WindowEvent arg0) {
+	    // Do nothing
+	}
 
-        @Override
-        public void windowClosed(final WindowEvent arg0) {
-            // Do nothing
-        }
+	@Override
+	public void windowClosed(final WindowEvent arg0) {
+	    // Do nothing
+	}
 
-        @Override
-        public void windowClosing(final WindowEvent arg0) {
-            if (GUIManager.this.quitHandler()) {
-                System.exit(0);
-            }
-        }
+	@Override
+	public void windowClosing(final WindowEvent arg0) {
+	    if (GUIManager.this.quitHandler()) {
+		System.exit(0);
+	    }
+	}
 
-        @Override
-        public void windowDeactivated(final WindowEvent arg0) {
-            // Do nothing
-        }
+	@Override
+	public void windowDeactivated(final WindowEvent arg0) {
+	    // Do nothing
+	}
 
-        @Override
-        public void windowDeiconified(final WindowEvent arg0) {
-            // Do nothing
-        }
+	@Override
+	public void windowDeiconified(final WindowEvent arg0) {
+	    // Do nothing
+	}
 
-        @Override
-        public void windowIconified(final WindowEvent arg0) {
-            // Do nothing
-        }
+	@Override
+	public void windowIconified(final WindowEvent arg0) {
+	    // Do nothing
+	}
 
-        @Override
-        public void windowOpened(final WindowEvent arg0) {
-            // Do nothing
-        }
+	@Override
+	public void windowOpened(final WindowEvent arg0) {
+	    // Do nothing
+	}
     }
 }

@@ -10,6 +10,6 @@ import com.puttysoftware.rulemazer.generic.GenericTransientObject;
 public class Arrow extends GenericTransientObject {
     // Constructors
     public Arrow() {
-        super("Arrow");
+	super("Arrow");
     }
 }

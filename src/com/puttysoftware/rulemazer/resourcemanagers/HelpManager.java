@@ -9,7 +9,6 @@ import java.net.URL;
 
 public class HelpManager {
     public static URL getHelpURL() {
-        return HelpManager.class.getResource(
-                "/com/puttysoftware/rulemazer/resources/help/RuleMazerHelp.html");
+	return HelpManager.class.getResource("/com/puttysoftware/rulemazer/resources/help/RuleMazerHelp.html");
     }
 }

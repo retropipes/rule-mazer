@@ -15,38 +15,35 @@ public class FireAmulet extends GenericAmulet {
 
     // Constructors
     public FireAmulet() {
-        super();
+	super();
     }
 
     @Override
     public String getName() {
-        return "Fire Amulet";
+	return "Fire Amulet";
     }
 
     @Override
     public String getPluralName() {
-        return "Fire Amulets";
+	return "Fire Amulets";
     }
 
     @Override
     public String getDescription() {
-        return "Fire Amulets grant the power to transform ground into Hot Rock for 30 steps. Note that you can only wear one amulet at once.";
+	return "Fire Amulets grant the power to transform ground into Hot Rock for 30 steps. Note that you can only wear one amulet at once.";
     }
 
     @Override
     public void stepAction() {
-        final int x = Main.getApplication().getGameManager().getPlayerManager()
-                .getPlayerLocationX();
-        final int y = Main.getApplication().getGameManager().getPlayerManager()
-                .getPlayerLocationY();
-        final int z = Main.getApplication().getGameManager().getPlayerManager()
-                .getPlayerLocationZ();
-        Main.getApplication().getMazeManager().getMaze().hotGround(x, y, z);
+	final int x = Main.getApplication().getGameManager().getPlayerManager().getPlayerLocationX();
+	final int y = Main.getApplication().getGameManager().getPlayerManager().getPlayerLocationY();
+	final int z = Main.getApplication().getGameManager().getPlayerManager().getPlayerLocationZ();
+	Main.getApplication().getMazeManager().getMaze().hotGround(x, y, z);
     }
 
     @Override
     public void postMoveActionHook() {
-        Main.getApplication().getGameManager().activateEffect(
-                MazeEffectConstants.EFFECT_FIERY, FireAmulet.EFFECT_DURATION);
+	Main.getApplication().getGameManager().activateEffect(MazeEffectConstants.EFFECT_FIERY,
+		FireAmulet.EFFECT_DURATION);
     }
 }

@@ -14,31 +14,29 @@ import com.puttysoftware.rulemazer.resourcemanagers.SoundManager;
 public class RoseHouse extends FinishTo {
     // Constructors
     public RoseHouse() {
-        super();
+	super();
     }
 
     // Scriptability
     @Override
-    public void postMoveAction(final boolean ie, final int dirX, final int dirY,
-            final ObjectInventory inv) {
-        final Application app = Main.getApplication();
-        SoundManager.playSound(SoundConstants.SOUND_CATEGORY_SOLVING_MAZE,
-                SoundConstants.SOUND_UP);
-        app.getGameManager().goToLevel(this.getDestinationLevel());
+    public void postMoveAction(final boolean ie, final int dirX, final int dirY, final ObjectInventory inv) {
+	final Application app = Main.getApplication();
+	SoundManager.playSound(SoundConstants.SOUND_CATEGORY_SOLVING_MAZE, SoundConstants.SOUND_UP);
+	app.getGameManager().goToLevel(this.getDestinationLevel());
     }
 
     @Override
     public String getName() {
-        return "Rose House";
+	return "Rose House";
     }
 
     @Override
     public String getPluralName() {
-        return "Rose Houses";
+	return "Rose Houses";
     }
 
     @Override
     public String getDescription() {
-        return "Rose Houses send you inside when walked on.";
+	return "Rose Houses send you inside when walked on.";
     }
 }

@@ -10,6 +10,6 @@ import com.puttysoftware.rulemazer.generic.GenericPort;
 public class UPort extends GenericPort {
     // Constructors
     public UPort() {
-        super(new UPlug(), 'U');
+	super(new UPlug(), 'U');
     }
 }

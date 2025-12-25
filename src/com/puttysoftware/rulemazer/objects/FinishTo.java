@@ -19,101 +19,97 @@ public class FinishTo extends Finish {
 
     // Constructors
     public FinishTo() {
-        super();
-        this.destinationLevel = 0;
+	super();
+	this.destinationLevel = 0;
     }
 
     // Scriptability
     @Override
-    public void postMoveAction(final boolean ie, final int dirX, final int dirY,
-            final ObjectInventory inv) {
-        final Application app = Main.getApplication();
-        SoundManager.playSound(SoundConstants.SOUND_CATEGORY_SOLVING_MAZE,
-                SoundConstants.SOUND_FINISH);
-        app.getGameManager().solvedLevelWarp(this.getDestinationLevel());
+    public void postMoveAction(final boolean ie, final int dirX, final int dirY, final ObjectInventory inv) {
+	final Application app = Main.getApplication();
+	SoundManager.playSound(SoundConstants.SOUND_CATEGORY_SOLVING_MAZE, SoundConstants.SOUND_FINISH);
+	app.getGameManager().solvedLevelWarp(this.getDestinationLevel());
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + this.destinationLevel;
-        return result;
+	final int prime = 31;
+	int result = super.hashCode();
+	result = prime * result + this.destinationLevel;
+	return result;
     }
 
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (!(obj instanceof FinishTo)) {
-            return false;
-        }
-        final FinishTo other = (FinishTo) obj;
-        if (this.destinationLevel != other.destinationLevel) {
-            return false;
-        }
-        return true;
+	if (this == obj) {
+	    return true;
+	}
+	if (!super.equals(obj)) {
+	    return false;
+	}
+	if (!(obj instanceof FinishTo)) {
+	    return false;
+	}
+	final FinishTo other = (FinishTo) obj;
+	if (this.destinationLevel != other.destinationLevel) {
+	    return false;
+	}
+	return true;
     }
 
     @Override
     public int getDestinationLevel() {
-        return this.destinationLevel;
+	return this.destinationLevel;
     }
 
     public void setDestinationLevel(final int level) {
-        this.destinationLevel = level;
+	this.destinationLevel = level;
     }
 
     @Override
     public String getName() {
-        return "Finish To";
+	return "Finish To";
     }
 
     @Override
     public String getPluralName() {
-        return "Finishes To";
+	return "Finishes To";
     }
 
     @Override
     public void gameProbeHook() {
-        Main.getApplication().showMessage(
-                this.getName() + " Level " + (this.getDestinationLevel() + 1));
+	Main.getApplication().showMessage(this.getName() + " Level " + (this.getDestinationLevel() + 1));
     }
 
     @Override
     public void editorProbeHook() {
-        Main.getApplication().showMessage(
-                this.getName() + " Level " + (this.getDestinationLevel() + 1));
+	Main.getApplication().showMessage(this.getName() + " Level " + (this.getDestinationLevel() + 1));
     }
 
     @Override
     public MazeObject editorPropertiesHook() {
-        final MazeEditor me = Main.getApplication().getEditor();
-        me.editFinishToDestination(this);
-        return this;
+	final MazeEditor me = Main.getApplication().getEditor();
+	me.editFinishToDestination(this);
+	return this;
     }
 
     @Override
     public String getDescription() {
-        return "Finishes To behave like regular Finishes, except that the level they send you to might not be the next one.";
+	return "Finishes To behave like regular Finishes, except that the level they send you to might not be the next one.";
     }
 
     @Override
     public int getCustomFormat() {
-        return 1;
+	return 1;
     }
 
     @Override
     public int getCustomProperty(final int propID) {
-        return this.destinationLevel;
+	return this.destinationLevel;
     }
 
     @Override
     public void setCustomProperty(final int propID, final int value) {
-        this.destinationLevel = value;
+	this.destinationLevel = value;
     }
 }

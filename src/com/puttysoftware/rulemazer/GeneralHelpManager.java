@@ -26,33 +26,31 @@ public class GeneralHelpManager {
 
     // Constructors
     public GeneralHelpManager() {
-        // Do nothing
+	// Do nothing
     }
 
     // Methods
     public void showHelp() {
-        if (!this.inited) {
-            final URL helpURL = HelpManager.getHelpURL();
-            this.hv = new HTMLHelpViewer(helpURL);
-            this.helpFrame = new JFrame("RuleMazer Help");
-            final Image iconlogo = Main.getApplication().getIconLogo();
-            this.helpFrame.setIconImage(iconlogo);
-            this.helpFrame
-                    .setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-            this.helpFrame.setLayout(new FlowLayout());
-            this.helpFrame.add(this.hv.getHelp());
-            this.hv.setHelpSize(GraphicsManager.MAX_WINDOW_SIZE,
-                    GraphicsManager.MAX_WINDOW_SIZE);
-            this.helpFrame.pack();
-            this.helpFrame.setResizable(false);
-            // Mac OS X-specific fixes
-            if (System.getProperty("os.name").startsWith("Mac OS X")) {
-                this.menu = new MenuManager();
-                this.menu.setHelpMenus();
-                this.helpFrame.setJMenuBar(this.menu.getMainMenuBar());
-            }
-            this.inited = true;
-        }
-        this.helpFrame.setVisible(true);
+	if (!this.inited) {
+	    final URL helpURL = HelpManager.getHelpURL();
+	    this.hv = new HTMLHelpViewer(helpURL);
+	    this.helpFrame = new JFrame("RuleMazer Help");
+	    final Image iconlogo = Main.getApplication().getIconLogo();
+	    this.helpFrame.setIconImage(iconlogo);
+	    this.helpFrame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+	    this.helpFrame.setLayout(new FlowLayout());
+	    this.helpFrame.add(this.hv.getHelp());
+	    this.hv.setHelpSize(GraphicsManager.MAX_WINDOW_SIZE, GraphicsManager.MAX_WINDOW_SIZE);
+	    this.helpFrame.pack();
+	    this.helpFrame.setResizable(false);
+	    // Mac OS X-specific fixes
+	    if (System.getProperty("os.name").startsWith("Mac OS X")) {
+		this.menu = new MenuManager();
+		this.menu.setHelpMenus();
+		this.helpFrame.setJMenuBar(this.menu.getMainMenuBar());
+	    }
+	    this.inited = true;
+	}
+	this.helpFrame.setVisible(true);
     }
 }

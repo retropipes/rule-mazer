@@ -10,6 +10,6 @@ import com.puttysoftware.rulemazer.generic.GenericProgrammableKey;
 public class LightGrayCrystal extends GenericProgrammableKey {
     // Constructors
     public LightGrayCrystal() {
-        super("Light Gray");
+	super("Light Gray");
     }
 }

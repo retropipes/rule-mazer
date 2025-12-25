@@ -8,14 +8,12 @@ import com.puttysoftware.xmlio.XMLDataWriter;
 
 public class XMLSuffixHandler implements XMLSuffixIO {
     @Override
-    public void readSuffix(final XMLDataReader reader, final int formatVersion)
-            throws IOException {
-        Main.getApplication().getGameManager().loadGameHookXML(reader,
-                formatVersion);
+    public void readSuffix(final XMLDataReader reader, final int formatVersion) throws IOException {
+	Main.getApplication().getGameManager().loadGameHookXML(reader, formatVersion);
     }
 
     @Override
     public void writeSuffix(final XMLDataWriter writer) throws IOException {
-        Main.getApplication().getGameManager().saveGameHookXML(writer);
+	Main.getApplication().getGameManager().saveGameHookXML(writer);
     }
 }
