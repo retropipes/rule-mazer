@@ -2,18 +2,19 @@ package com.puttysoftware.rulemazer.maze.xml;
 
 import java.io.IOException;
 
+import org.retropipes.diane.fileio.legacy.XLegacyDataReader;
+import org.retropipes.diane.fileio.legacy.XLegacyDataWriter;
+
 import com.puttysoftware.rulemazer.Main;
-import com.puttysoftware.xmlio.XMLDataReader;
-import com.puttysoftware.xmlio.XMLDataWriter;
 
 public class XMLSuffixHandler implements XMLSuffixIO {
     @Override
-    public void readSuffix(final XMLDataReader reader, final int formatVersion) throws IOException {
+    public void readSuffix(final XLegacyDataReader reader, final int formatVersion) throws IOException {
 	Main.getApplication().getGameManager().loadGameHookXML(reader, formatVersion);
     }
 
     @Override
-    public void writeSuffix(final XMLDataWriter writer) throws IOException {
+    public void writeSuffix(final XLegacyDataWriter writer) throws IOException {
 	Main.getApplication().getGameManager().saveGameHookXML(writer);
     }
 }

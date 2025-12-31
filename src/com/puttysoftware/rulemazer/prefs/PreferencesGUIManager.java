@@ -195,7 +195,7 @@ class PreferencesGUIManager {
 		    pm.hidePrefs();
 		}
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 
@@ -219,7 +219,7 @@ class PreferencesGUIManager {
 		    }
 		}
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 

@@ -5,6 +5,8 @@ Any questions should be directed to the author via email at: rulemazer@puttysoft
  */
 package com.puttysoftware.rulemazer.maze;
 
+import java.awt.desktop.OpenFilesEvent;
+import java.awt.desktop.OpenFilesHandler;
 import java.io.File;
 
 import javax.swing.JFileChooser;
@@ -23,7 +25,7 @@ import com.puttysoftware.rulemazer.maze.xml.XMLMazeFilter;
 import com.puttysoftware.rulemazer.maze.xml.XMLSaveTask;
 import com.puttysoftware.rulemazer.prefs.PreferencesManager;
 
-public class MazeManager {
+public class MazeManager implements OpenFilesHandler {
     // Fields
     private Maze gameMaze;
     private boolean loaded, isDirty;
@@ -159,11 +161,10 @@ public class MazeManager {
 	this.scoresFileName = filename;
     }
 
-    public void loadFromOSHandler(final String infilename) { // NO_UCD
+    public void loadFromOSHandler(final File file) { // NO_UCD
 	final Application app = Main.getApplication();
 	if (!this.loaded) {
 	    String extension;
-	    final File file = new File(infilename);
 	    final String filename = file.getAbsolutePath();
 	    extension = MazeManager.getExtension(file);
 	    app.getGameManager().resetObjectInventory();
@@ -436,5 +437,12 @@ public class MazeManager {
 	    fno = s;
 	}
 	return fno;
+    }
+
+    @Override
+    public void openFiles(OpenFilesEvent e) {
+	for (final File file : e.getFiles()) {
+	    this.loadFromOSHandler(file);
+	}
     }
 }

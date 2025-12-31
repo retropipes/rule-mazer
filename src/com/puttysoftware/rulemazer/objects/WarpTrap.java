@@ -5,7 +5,8 @@ Any questions should be directed to the author via email at: rulemazer@puttysoft
  */
 package com.puttysoftware.rulemazer.objects;
 
-import com.puttysoftware.randomnumbers.RandomRange;
+import org.retropipes.diane.random.RandomRange;
+
 import com.puttysoftware.rulemazer.Application;
 import com.puttysoftware.rulemazer.Main;
 import com.puttysoftware.rulemazer.game.ObjectInventory;

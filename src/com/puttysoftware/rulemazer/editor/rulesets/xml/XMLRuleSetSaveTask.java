@@ -7,12 +7,13 @@ package com.puttysoftware.rulemazer.editor.rulesets.xml;
 
 import java.io.FileNotFoundException;
 
+import org.retropipes.diane.fileio.legacy.XLegacyDataWriter;
+
 import com.puttysoftware.rulemazer.Application;
 import com.puttysoftware.rulemazer.CommonDialogs;
 import com.puttysoftware.rulemazer.Main;
 import com.puttysoftware.rulemazer.editor.rulesets.RuleSetConstants;
 import com.puttysoftware.rulemazer.maze.xml.XMLExtension;
-import com.puttysoftware.xmlio.XMLDataWriter;
 
 public class XMLRuleSetSaveTask extends Thread {
     // Fields
@@ -33,17 +34,15 @@ public class XMLRuleSetSaveTask extends Thread {
 	if (!hasExtension) {
 	    this.filename += XMLExtension.getXMLRuleSetExtensionWithPeriod();
 	}
-	try {
-	    final XMLDataWriter ruleSetFile = new XMLDataWriter(this.filename, "ruleset");
+	try (final XLegacyDataWriter ruleSetFile = new XLegacyDataWriter(this.filename, "ruleset")) {
 	    ruleSetFile.writeInt(RuleSetConstants.MAGIC_NUMBER_2);
 	    app.getObjects().writeRuleSetXML(ruleSetFile);
-	    ruleSetFile.close();
 	    CommonDialogs.showTitledDialog(sg + " file saved.", "Rule Set Picker");
 	} catch (final FileNotFoundException fnfe) {
 	    CommonDialogs.showDialog("Saving the " + sg.toLowerCase()
 		    + " file failed, probably due to illegal characters in the file name.");
 	} catch (final Exception ex) {
-	    Main.getDebug().debug(ex);
+	    Main.logError(ex);
 	}
     }
 

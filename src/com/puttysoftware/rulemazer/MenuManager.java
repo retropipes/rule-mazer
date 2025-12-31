@@ -888,7 +888,7 @@ public class MenuManager {
 		}
 		MenuManager.this.checkFlags();
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
     }

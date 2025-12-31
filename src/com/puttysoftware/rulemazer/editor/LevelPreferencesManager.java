@@ -256,7 +256,7 @@ public class LevelPreferencesManager {
 		    lpm.hidePrefs();
 		}
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 

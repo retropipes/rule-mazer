@@ -8,8 +8,11 @@ package com.puttysoftware.rulemazer.maze;
 import java.io.File;
 import java.io.IOException;
 
-import com.puttysoftware.io.DirectoryUtilities;
-import com.puttysoftware.randomnumbers.RandomRange;
+import org.retropipes.diane.fileio.legacy.XLegacyDataReader;
+import org.retropipes.diane.fileio.legacy.XLegacyDataWriter;
+import org.retropipes.diane.fileio.utility.FileUtilities;
+import org.retropipes.diane.random.RandomRange;
+
 import com.puttysoftware.rulemazer.Main;
 import com.puttysoftware.rulemazer.generic.GenericCharacter;
 import com.puttysoftware.rulemazer.generic.MazeObject;
@@ -19,8 +22,6 @@ import com.puttysoftware.rulemazer.maze.xml.XMLSuffixIO;
 import com.puttysoftware.rulemazer.objects.Empty;
 import com.puttysoftware.rulemazer.objects.MovingBlock;
 import com.puttysoftware.rulemazer.prefs.PreferencesManager;
-import com.puttysoftware.xmlio.XMLDataReader;
-import com.puttysoftware.xmlio.XMLDataWriter;
 
 public class Maze implements MazeConstants {
     // Properties
@@ -397,21 +398,17 @@ public class Maze implements MazeConstants {
     private void switchLevelInternal(final int level) {
 	if (this.activeLevel != level) {
 	    if (this.mazeData != null) {
-		try {
+		try (final XLegacyDataWriter writer = this.getLevelWriterXML()) {
 		    // Save old level
-		    final XMLDataWriter writer = this.getLevelWriterXML();
 		    this.writeMazeLevelXML(writer);
-		    writer.close();
 		} catch (final IOException io) {
 		    // Ignore
 		}
 	    }
 	    this.activeLevel = level;
-	    try {
+	    try (final XLegacyDataReader reader = this.getLevelReaderXML()) {
 		// Load new level
-		final XMLDataReader reader = this.getLevelReaderXML();
 		this.readMazeLevelXML(reader);
-		reader.close();
 	    } catch (final IOException io) {
 		// Ignore
 	    }
@@ -465,11 +462,9 @@ public class Maze implements MazeConstants {
     public boolean addLevel(final int rows, final int cols, final int floors) {
 	if (this.levelCount < Maze.MAX_LEVELS) {
 	    if (this.mazeData != null) {
-		try {
+		try (final XLegacyDataWriter writer = this.getLevelWriterXML()) {
 		    // Save old level
-		    final XMLDataWriter writer = this.getLevelWriterXML();
 		    this.writeMazeLevelXML(writer);
-		    writer.close();
 		} catch (final IOException io) {
 		    // Ignore
 		}
@@ -497,7 +492,7 @@ public class Maze implements MazeConstants {
 		    final File sourceLocation = this.getLevelFile(x + 1);
 		    final File targetLocation = this.getLevelFile(x);
 		    try {
-			DirectoryUtilities.moveFile(sourceLocation, targetLocation);
+			FileUtilities.moveFile(sourceLocation, targetLocation);
 		    } catch (final IOException io) {
 			// Ignore
 		    }
@@ -865,35 +860,35 @@ public class Maze implements MazeConstants {
 	// Make base paths the same
 	m.basePath = this.basePath;
 	// Create metafile reader
-	final XMLDataReader metaReader = new XMLDataReader(m.basePath + File.separator + "metafile.xml", "maze");
-	// Read metafile
-	final int version = m.readMazeMetafileXML(metaReader);
-	metaReader.close();
-	// Set XML compatibility flag
-	if (version == XMLFormatConstants.XML_MAZE_FORMAT_1) {
-	    Main.getApplication().getMazeManager().setMazeXML1Compatible(true);
-	    Main.getApplication().getMazeManager().setMazeXML2Compatible(true);
-	} else if (version == XMLFormatConstants.XML_MAZE_FORMAT_2) {
-	    Main.getApplication().getMazeManager().setMazeXML1Compatible(false);
-	    Main.getApplication().getMazeManager().setMazeXML2Compatible(true);
-	} else {
-	    Main.getApplication().getMazeManager().setMazeXML1Compatible(false);
-	    Main.getApplication().getMazeManager().setMazeXML2Compatible(false);
+	try (final XLegacyDataReader metaReader = new XLegacyDataReader(m.basePath + File.separator + "metafile.xml",
+		"maze")) {
+	    // Read metafile
+	    final int version = m.readMazeMetafileXML(metaReader);
+	    // Set XML compatibility flag
+	    if (version == XMLFormatConstants.XML_MAZE_FORMAT_1) {
+		Main.getApplication().getMazeManager().setMazeXML1Compatible(true);
+		Main.getApplication().getMazeManager().setMazeXML2Compatible(true);
+	    } else if (version == XMLFormatConstants.XML_MAZE_FORMAT_2) {
+		Main.getApplication().getMazeManager().setMazeXML1Compatible(false);
+		Main.getApplication().getMazeManager().setMazeXML2Compatible(true);
+	    } else {
+		Main.getApplication().getMazeManager().setMazeXML1Compatible(false);
+		Main.getApplication().getMazeManager().setMazeXML2Compatible(false);
+	    }
+	    // Create data reader
+	    try (final XLegacyDataReader dataReader = m.getLevelReaderXML()) {
+		// Read data
+		m.readMazeLevelXML(dataReader, version);
+	    }
 	}
-	// Create data reader
-	final XMLDataReader dataReader = m.getLevelReaderXML();
-	// Read data
-	m.readMazeLevelXML(dataReader, version);
-	// Close reader
-	dataReader.close();
 	return m;
     }
 
-    private XMLDataReader getLevelReaderXML() throws IOException {
-	return new XMLDataReader(this.basePath + File.separator + "level" + this.activeLevel + ".xml", "level");
+    private XLegacyDataReader getLevelReaderXML() throws IOException {
+	return new XLegacyDataReader(this.basePath + File.separator + "level" + this.activeLevel + ".xml", "level");
     }
 
-    private int readMazeMetafileXML(final XMLDataReader reader) throws IOException {
+    private int readMazeMetafileXML(final XLegacyDataReader reader) throws IOException {
 	int ver = XMLFormatConstants.XML_MAZE_FORMAT_1;
 	if (this.xmlPrefixHandler != null) {
 	    ver = this.xmlPrefixHandler.readPrefix(reader);
@@ -912,11 +907,11 @@ public class Maze implements MazeConstants {
 	return ver;
     }
 
-    private void readMazeLevelXML(final XMLDataReader reader) throws IOException {
+    private void readMazeLevelXML(final XLegacyDataReader reader) throws IOException {
 	this.readMazeLevelXML(reader, XMLFormatConstants.XML_MAZE_FORMAT_4);
     }
 
-    private void readMazeLevelXML(final XMLDataReader reader, final int formatVersion) throws IOException {
+    private void readMazeLevelXML(final XLegacyDataReader reader, final int formatVersion) throws IOException {
 	if (formatVersion == XMLFormatConstants.XML_MAZE_FORMAT_1) {
 	    this.mazeData = LayeredTower.readXMLLayeredTowerV1(reader, formatVersion);
 	    this.mazeData.readSavedTowerStateXML(reader, formatVersion);
@@ -944,24 +939,23 @@ public class Maze implements MazeConstants {
 	// Clear XML 2 compatibility flag
 	Main.getApplication().getMazeManager().setMazeXML2Compatible(false);
 	// Create metafile writer
-	final XMLDataWriter metaWriter = new XMLDataWriter(this.basePath + File.separator + "metafile.xml", "maze");
-	// Write metafile
-	this.writeMazeMetafileXML(metaWriter);
-	// Close writer
-	metaWriter.close();
+	try (final XLegacyDataWriter metaWriter = new XLegacyDataWriter(this.basePath + File.separator + "metafile.xml",
+		"maze")) {
+	    // Write metafile
+	    this.writeMazeMetafileXML(metaWriter);
+	}
 	// Create data writer
-	final XMLDataWriter dataWriter = this.getLevelWriterXML();
-	// Write data
-	this.writeMazeLevelXML(dataWriter);
-	// Close writer
-	dataWriter.close();
+	try (final XLegacyDataWriter dataWriter = this.getLevelWriterXML()) {
+	    // Write data
+	    this.writeMazeLevelXML(dataWriter);
+	}
     }
 
-    private XMLDataWriter getLevelWriterXML() throws IOException {
-	return new XMLDataWriter(this.basePath + File.separator + "level" + this.activeLevel + ".xml", "level");
+    private XLegacyDataWriter getLevelWriterXML() throws IOException {
+	return new XLegacyDataWriter(this.basePath + File.separator + "level" + this.activeLevel + ".xml", "level");
     }
 
-    private void writeMazeMetafileXML(final XMLDataWriter writer) throws IOException {
+    private void writeMazeMetafileXML(final XLegacyDataWriter writer) throws IOException {
 	if (this.xmlPrefixHandler != null) {
 	    this.xmlPrefixHandler.writePrefix(writer);
 	}
@@ -977,7 +971,7 @@ public class Maze implements MazeConstants {
 	}
     }
 
-    private void writeMazeLevelXML(final XMLDataWriter writer) throws IOException {
+    private void writeMazeLevelXML(final XLegacyDataWriter writer) throws IOException {
 	// Clear XML compatibility flag
 	Main.getApplication().getMazeManager().setMazeXML1Compatible(false);
 	// Clear XML 2 compatibility flag

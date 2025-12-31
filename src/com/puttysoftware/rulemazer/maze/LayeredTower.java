@@ -8,7 +8,10 @@ package com.puttysoftware.rulemazer.maze;
 import java.io.IOException;
 import java.util.Arrays;
 
-import com.puttysoftware.randomnumbers.RandomRange;
+import org.retropipes.diane.fileio.legacy.XLegacyDataReader;
+import org.retropipes.diane.fileio.legacy.XLegacyDataWriter;
+import org.retropipes.diane.random.RandomRange;
+
 import com.puttysoftware.rulemazer.Application;
 import com.puttysoftware.rulemazer.CommonDialogs;
 import com.puttysoftware.rulemazer.Main;
@@ -35,8 +38,6 @@ import com.puttysoftware.rulemazer.objects.PoisonedBarrierGenerator;
 import com.puttysoftware.rulemazer.objects.ShockedBarrierGenerator;
 import com.puttysoftware.rulemazer.objects.Slime;
 import com.puttysoftware.rulemazer.prefs.PreferencesManager;
-import com.puttysoftware.xmlio.XMLDataReader;
-import com.puttysoftware.xmlio.XMLDataWriter;
 
 class LayeredTower implements Cloneable {
     // Properties
@@ -1628,7 +1629,7 @@ class LayeredTower implements Cloneable {
 	return this.thirdDimensionWraparoundEnabled;
     }
 
-    public void writeXMLLayeredTower(final XMLDataWriter writer) throws IOException {
+    public void writeXMLLayeredTower(final XLegacyDataWriter writer) throws IOException {
 	int y, x, z, e;
 	writer.writeInt(this.getColumns());
 	writer.writeInt(this.getRows());
@@ -1666,7 +1667,7 @@ class LayeredTower implements Cloneable {
 	writer.writeInt(this.firstMovingFinishZ);
     }
 
-    public static LayeredTower readXMLLayeredTowerV1(final XMLDataReader reader, final int ver) throws IOException {
+    public static LayeredTower readXMLLayeredTowerV1(final XLegacyDataReader reader, final int ver) throws IOException {
 	int y, x, z, e, mazeSizeX, mazeSizeY, mazeSizeZ;
 	mazeSizeX = reader.readInt();
 	mazeSizeY = reader.readInt();
@@ -1702,48 +1703,7 @@ class LayeredTower implements Cloneable {
 	return lt;
     }
 
-    public static LayeredTower readXMLLayeredTowerV2(final XMLDataReader reader, final int ver) throws IOException {
-	int y, x, z, e, mazeSizeX, mazeSizeY, mazeSizeZ;
-	mazeSizeX = reader.readInt();
-	mazeSizeY = reader.readInt();
-	mazeSizeZ = reader.readInt();
-	final LayeredTower lt = new LayeredTower(mazeSizeX, mazeSizeY, mazeSizeZ);
-	for (x = 0; x < lt.getColumns(); x++) {
-	    for (y = 0; y < lt.getRows(); y++) {
-		for (z = 0; z < lt.getFloors(); z++) {
-		    for (e = 0; e < MazeConstants.LAYER_COUNT; e++) {
-			lt.setCell(Main.getApplication().getObjects().readMazeObjectXML(reader, ver), y, x, z, e);
-			if (lt.getCell(y, x, z, e) == null) {
-			    return null;
-			}
-		    }
-		}
-	    }
-	}
-	for (y = 0; y < 3; y++) {
-	    lt.playerData[y] = reader.readInt();
-	}
-	lt.horizontalWraparoundEnabled = reader.readBoolean();
-	lt.verticalWraparoundEnabled = reader.readBoolean();
-	lt.thirdDimensionWraparoundEnabled = reader.readBoolean();
-	lt.levelTitle = reader.readString();
-	lt.levelStartMessage = reader.readString();
-	lt.levelEndMessage = reader.readString();
-	lt.poisonPower = reader.readInt();
-	lt.oldPoisonPower = lt.poisonPower;
-	lt.timerValue = reader.readInt();
-	lt.initialTimerValue = lt.timerValue;
-	lt.timerActive = reader.readBoolean();
-	lt.autoFinishThresholdEnabled = reader.readBoolean();
-	lt.autoFinishThreshold = reader.readInt();
-	lt.useOffset = reader.readBoolean();
-	lt.nextLevel = reader.readInt();
-	lt.nextLevelOffset = reader.readInt();
-	lt.initialVisionRadius = LayeredTower.MAX_VISION_RADIUS;
-	return lt;
-    }
-
-    public static LayeredTower readXMLLayeredTowerV3(final XMLDataReader reader, final int ver) throws IOException {
+    public static LayeredTower readXMLLayeredTowerV2(final XLegacyDataReader reader, final int ver) throws IOException {
 	int y, x, z, e, mazeSizeX, mazeSizeY, mazeSizeZ;
 	mazeSizeX = reader.readInt();
 	mazeSizeY = reader.readInt();
@@ -1784,7 +1744,48 @@ class LayeredTower implements Cloneable {
 	return lt;
     }
 
-    public static LayeredTower readXMLLayeredTowerV4(final XMLDataReader reader, final int ver) throws IOException {
+    public static LayeredTower readXMLLayeredTowerV3(final XLegacyDataReader reader, final int ver) throws IOException {
+	int y, x, z, e, mazeSizeX, mazeSizeY, mazeSizeZ;
+	mazeSizeX = reader.readInt();
+	mazeSizeY = reader.readInt();
+	mazeSizeZ = reader.readInt();
+	final LayeredTower lt = new LayeredTower(mazeSizeX, mazeSizeY, mazeSizeZ);
+	for (x = 0; x < lt.getColumns(); x++) {
+	    for (y = 0; y < lt.getRows(); y++) {
+		for (z = 0; z < lt.getFloors(); z++) {
+		    for (e = 0; e < MazeConstants.LAYER_COUNT; e++) {
+			lt.setCell(Main.getApplication().getObjects().readMazeObjectXML(reader, ver), y, x, z, e);
+			if (lt.getCell(y, x, z, e) == null) {
+			    return null;
+			}
+		    }
+		}
+	    }
+	}
+	for (y = 0; y < 3; y++) {
+	    lt.playerData[y] = reader.readInt();
+	}
+	lt.horizontalWraparoundEnabled = reader.readBoolean();
+	lt.verticalWraparoundEnabled = reader.readBoolean();
+	lt.thirdDimensionWraparoundEnabled = reader.readBoolean();
+	lt.levelTitle = reader.readString();
+	lt.levelStartMessage = reader.readString();
+	lt.levelEndMessage = reader.readString();
+	lt.poisonPower = reader.readInt();
+	lt.oldPoisonPower = lt.poisonPower;
+	lt.timerValue = reader.readInt();
+	lt.initialTimerValue = lt.timerValue;
+	lt.timerActive = reader.readBoolean();
+	lt.autoFinishThresholdEnabled = reader.readBoolean();
+	lt.autoFinishThreshold = reader.readInt();
+	lt.useOffset = reader.readBoolean();
+	lt.nextLevel = reader.readInt();
+	lt.nextLevelOffset = reader.readInt();
+	lt.initialVisionRadius = LayeredTower.MAX_VISION_RADIUS;
+	return lt;
+    }
+
+    public static LayeredTower readXMLLayeredTowerV4(final XLegacyDataReader reader, final int ver) throws IOException {
 	int y, x, z, e, mazeSizeX, mazeSizeY, mazeSizeZ;
 	mazeSizeX = reader.readInt();
 	mazeSizeY = reader.readInt();
@@ -1830,11 +1831,11 @@ class LayeredTower implements Cloneable {
 	return lt;
     }
 
-    public void writeSavedTowerStateXML(final XMLDataWriter writer) throws IOException {
+    public void writeSavedTowerStateXML(final XLegacyDataWriter writer) throws IOException {
 	this.savedTowerState.writeSavedTowerStateXML(writer);
     }
 
-    public void readSavedTowerStateXML(final XMLDataReader reader, final int formatVersion) throws IOException {
+    public void readSavedTowerStateXML(final XLegacyDataReader reader, final int formatVersion) throws IOException {
 	this.savedTowerState = SavedTowerState.readSavedTowerStateXML(reader, formatVersion);
     }
 }

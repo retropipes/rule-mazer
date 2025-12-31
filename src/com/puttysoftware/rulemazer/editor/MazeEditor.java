@@ -1770,7 +1770,7 @@ public class MazeEditor {
 		this.exitEditor();
 	    }
 	} catch (final Exception ex) {
-	    Main.getDebug().debug(ex);
+	    Main.logError(ex);
 	}
     }
 
@@ -1801,7 +1801,7 @@ public class MazeEditor {
 		    break;
 		}
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 
@@ -1836,7 +1836,7 @@ public class MazeEditor {
 		    }
 		}
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 
@@ -1956,7 +1956,7 @@ public class MazeEditor {
 		    break;
 		}
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 
@@ -1978,7 +1978,7 @@ public class MazeEditor {
 		final int y = e.getY();
 		MazeEditor.this.setPlayerLocation(x, y);
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 
@@ -2020,7 +2020,7 @@ public class MazeEditor {
 		    break;
 		}
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 
@@ -2042,7 +2042,7 @@ public class MazeEditor {
 		final int y = e.getY();
 		MazeEditor.this.setTeleportDestination(x, y);
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 
@@ -2084,7 +2084,7 @@ public class MazeEditor {
 		    break;
 		}
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 
@@ -2106,7 +2106,7 @@ public class MazeEditor {
 		final int y = e.getY();
 		MazeEditor.this.setConditionalTeleportDestination(x, y);
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 
@@ -2148,7 +2148,7 @@ public class MazeEditor {
 		    break;
 		}
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 
@@ -2170,7 +2170,7 @@ public class MazeEditor {
 		final int y = e.getY();
 		MazeEditor.this.setMetalButtonTarget(x, y);
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 

@@ -2,13 +2,14 @@ package com.puttysoftware.rulemazer.objects;
 
 import java.io.IOException;
 
-import com.puttysoftware.randomnumbers.RandomRange;
+import org.retropipes.diane.fileio.legacy.XLegacyDataReader;
+import org.retropipes.diane.fileio.legacy.XLegacyDataWriter;
+import org.retropipes.diane.random.RandomRange;
+
 import com.puttysoftware.rulemazer.Main;
 import com.puttysoftware.rulemazer.generic.GenericMovingObject;
 import com.puttysoftware.rulemazer.generic.MazeObject;
 import com.puttysoftware.rulemazer.generic.MazeObjectList;
-import com.puttysoftware.xmlio.XMLDataReader;
-import com.puttysoftware.xmlio.XMLDataWriter;
 
 public class MovingBlock extends GenericMovingObject implements Cloneable {
     // Constructors
@@ -61,12 +62,12 @@ public class MovingBlock extends GenericMovingObject implements Cloneable {
     }
 
     @Override
-    protected void writeMazeObjectHookXML(final XMLDataWriter writer) throws IOException {
+    protected void writeMazeObjectHookXML(final XLegacyDataWriter writer) throws IOException {
 	this.savedObject.writeMazeObjectXML(writer);
     }
 
     @Override
-    protected MazeObject readMazeObjectHookXML(final XMLDataReader reader, final int formatVersion) throws IOException {
+    protected MazeObject readMazeObjectHookXML(final XLegacyDataReader reader, final int formatVersion) throws IOException {
 	final MazeObjectList objectList = Main.getApplication().getObjects();
 	this.savedObject = objectList.readMazeObjectXML(reader, formatVersion);
 	return this;

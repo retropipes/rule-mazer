@@ -7,6 +7,9 @@ package com.puttysoftware.rulemazer.objects;
 
 import java.io.IOException;
 
+import org.retropipes.diane.fileio.legacy.XLegacyDataReader;
+import org.retropipes.diane.fileio.legacy.XLegacyDataWriter;
+
 import com.puttysoftware.rulemazer.CommonDialogs;
 import com.puttysoftware.rulemazer.Main;
 import com.puttysoftware.rulemazer.game.ObjectInventory;
@@ -14,8 +17,6 @@ import com.puttysoftware.rulemazer.generic.GenericTrap;
 import com.puttysoftware.rulemazer.generic.MazeObject;
 import com.puttysoftware.rulemazer.resourcemanagers.SoundConstants;
 import com.puttysoftware.rulemazer.resourcemanagers.SoundManager;
-import com.puttysoftware.xmlio.XMLDataReader;
-import com.puttysoftware.xmlio.XMLDataWriter;
 
 public class RotationTrap extends GenericTrap implements Cloneable {
     // Fields
@@ -102,14 +103,14 @@ public class RotationTrap extends GenericTrap implements Cloneable {
     }
 
     @Override
-    protected MazeObject readMazeObjectHookXML(final XMLDataReader reader, final int formatVersion) throws IOException {
+    protected MazeObject readMazeObjectHookXML(final XLegacyDataReader reader, final int formatVersion) throws IOException {
 	this.radius = reader.readInt();
 	this.direction = reader.readBoolean();
 	return this;
     }
 
     @Override
-    protected void writeMazeObjectHookXML(final XMLDataWriter writer) throws IOException {
+    protected void writeMazeObjectHookXML(final XLegacyDataWriter writer) throws IOException {
 	writer.writeInt(this.radius);
 	writer.writeBoolean(this.direction);
     }

@@ -7,6 +7,9 @@ package com.puttysoftware.rulemazer.game;
 
 import java.io.IOException;
 
+import org.retropipes.diane.fileio.legacy.XLegacyDataReader;
+import org.retropipes.diane.fileio.legacy.XLegacyDataWriter;
+
 import com.puttysoftware.rulemazer.Main;
 import com.puttysoftware.rulemazer.generic.GenericAmulet;
 import com.puttysoftware.rulemazer.generic.GenericBoots;
@@ -17,8 +20,6 @@ import com.puttysoftware.rulemazer.generic.TypeConstants;
 import com.puttysoftware.rulemazer.objects.Bow;
 import com.puttysoftware.rulemazer.objects.NormalAmulet;
 import com.puttysoftware.rulemazer.objects.RegularBoots;
-import com.puttysoftware.xmlio.XMLDataReader;
-import com.puttysoftware.xmlio.XMLDataWriter;
 
 public final class ObjectInventory implements Cloneable {
     // Properties
@@ -463,7 +464,7 @@ public final class ObjectInventory implements Cloneable {
 	return clone;
     }
 
-    public static ObjectInventory readInventoryXML(final XMLDataReader reader, final int formatVersion)
+    public static ObjectInventory readInventoryXML(final XLegacyDataReader reader, final int formatVersion)
 	    throws IOException {
 	final MazeObjectList objects = Main.getApplication().getObjects();
 	final ObjectInventory i = new ObjectInventory();
@@ -490,7 +491,7 @@ public final class ObjectInventory implements Cloneable {
 	return i;
     }
 
-    public void writeInventoryXML(final XMLDataWriter writer) throws IOException {
+    public void writeInventoryXML(final XLegacyDataWriter writer) throws IOException {
 	this.boots.writeMazeObjectXML(writer);
 	this.amulet.writeMazeObjectXML(writer);
 	for (final int content : this.contents) {

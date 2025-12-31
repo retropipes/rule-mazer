@@ -7,11 +7,12 @@ package com.puttysoftware.rulemazer.generic;
 
 import java.io.IOException;
 
+import org.retropipes.diane.fileio.legacy.XLegacyDataReader;
+import org.retropipes.diane.fileio.legacy.XLegacyDataWriter;
+
 import com.puttysoftware.rulemazer.CommonDialogs;
 import com.puttysoftware.rulemazer.game.ObjectInventory;
 import com.puttysoftware.rulemazer.maze.MazeConstants;
-import com.puttysoftware.xmlio.XMLDataReader;
-import com.puttysoftware.xmlio.XMLDataWriter;
 
 public abstract class GenericTextHolder extends MazeObject {
     // Fields
@@ -63,13 +64,13 @@ public abstract class GenericTextHolder extends MazeObject {
     }
 
     @Override
-    protected MazeObject readMazeObjectHookXML(final XMLDataReader reader, final int formatVersion) throws IOException {
+    protected MazeObject readMazeObjectHookXML(final XLegacyDataReader reader, final int formatVersion) throws IOException {
 	this.text = reader.readString();
 	return this;
     }
 
     @Override
-    protected void writeMazeObjectHookXML(final XMLDataWriter writer) throws IOException {
+    protected void writeMazeObjectHookXML(final XLegacyDataWriter writer) throws IOException {
 	writer.writeString(this.text);
     }
 

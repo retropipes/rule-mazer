@@ -146,7 +146,7 @@ class RuleSetEditor {
 		    ge.hideRuleSetEditor();
 		}
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 

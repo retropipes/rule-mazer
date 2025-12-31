@@ -26,6 +26,9 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
+import org.retropipes.diane.fileio.legacy.XLegacyDataReader;
+import org.retropipes.diane.fileio.legacy.XLegacyDataWriter;
+
 import com.puttysoftware.rulemazer.Application;
 import com.puttysoftware.rulemazer.CommonDialogs;
 import com.puttysoftware.rulemazer.Main;
@@ -66,8 +69,6 @@ import com.puttysoftware.rulemazer.prefs.PreferencesManager;
 import com.puttysoftware.rulemazer.resourcemanagers.GraphicsManager;
 import com.puttysoftware.rulemazer.resourcemanagers.SoundConstants;
 import com.puttysoftware.rulemazer.resourcemanagers.SoundManager;
-import com.puttysoftware.xmlio.XMLDataReader;
-import com.puttysoftware.xmlio.XMLDataWriter;
 
 public class GameManager implements MazeEffectConstants {
     // Fields
@@ -1580,7 +1581,7 @@ public class GameManager implements MazeEffectConstants {
 	}
     }
 
-    public void loadGameHookXML(final XMLDataReader mazeFile, final int formatVersion) throws IOException {
+    public void loadGameHookXML(final XLegacyDataReader mazeFile, final int formatVersion) throws IOException {
 	final Application app = Main.getApplication();
 	this.objectInv = ObjectInventory.readInventoryXML(mazeFile, formatVersion);
 	this.savedObjectInv = ObjectInventory.readInventoryXML(mazeFile, formatVersion);
@@ -1588,7 +1589,7 @@ public class GameManager implements MazeEffectConstants {
 	this.st.setScore(mazeFile.readLong());
     }
 
-    public void saveGameHookXML(final XMLDataWriter mazeFile) throws IOException {
+    public void saveGameHookXML(final XLegacyDataWriter mazeFile) throws IOException {
 	final Application app = Main.getApplication();
 	this.objectInv.writeInventoryXML(mazeFile);
 	this.savedObjectInv.writeInventoryXML(mazeFile);
@@ -1820,7 +1821,7 @@ public class GameManager implements MazeEffectConstants {
 		    gm.setPullInProgress(false);
 		}
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 
@@ -1900,7 +1901,7 @@ public class GameManager implements MazeEffectConstants {
 		    gm.setPullInProgress(false);
 		}
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 
@@ -1935,7 +1936,7 @@ public class GameManager implements MazeEffectConstants {
 		    app.getGameManager().exitGame();
 		}
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 
@@ -1989,7 +1990,7 @@ public class GameManager implements MazeEffectConstants {
 		    gm.controllableTeleportHandler(x, y);
 		}
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 

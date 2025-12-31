@@ -90,7 +90,7 @@ public class ArrowTask extends Thread {
 	    SoundManager.playSound(SoundConstants.SOUND_CATEGORY_SOLVING_MAZE, SoundConstants.SOUND_ARROW_DEAD);
 	    app.getGameManager().arrowDone();
 	} catch (final Throwable t) {
-	    Main.getDebug().debug(t);
+	    Main.logError(t);
 	}
     }
 

@@ -7,6 +7,9 @@ package com.puttysoftware.rulemazer.generic;
 
 import java.io.IOException;
 
+import org.retropipes.diane.fileio.legacy.XLegacyDataReader;
+import org.retropipes.diane.fileio.legacy.XLegacyDataWriter;
+
 import com.puttysoftware.rulemazer.Application;
 import com.puttysoftware.rulemazer.CommonDialogs;
 import com.puttysoftware.rulemazer.Main;
@@ -17,8 +20,6 @@ import com.puttysoftware.rulemazer.objects.PasswallBoots;
 import com.puttysoftware.rulemazer.objects.SignalCrystal;
 import com.puttysoftware.rulemazer.resourcemanagers.SoundConstants;
 import com.puttysoftware.rulemazer.resourcemanagers.SoundManager;
-import com.puttysoftware.xmlio.XMLDataReader;
-import com.puttysoftware.xmlio.XMLDataWriter;
 
 public abstract class GenericProgrammableLock extends GenericSingleLock {
     private static final SignalCrystal SIGNAL = new SignalCrystal();
@@ -138,7 +139,7 @@ public abstract class GenericProgrammableLock extends GenericSingleLock {
     }
 
     @Override
-    protected MazeObject readMazeObjectHookXML(final XMLDataReader reader, final int formatVersion) throws IOException {
+    protected MazeObject readMazeObjectHookXML(final XLegacyDataReader reader, final int formatVersion) throws IOException {
 	final MazeObject o = Main.getApplication().getObjects().readMazeObjectXML(reader, formatVersion);
 	if (o == null) {
 	    this.setKey(GenericProgrammableLock.SIGNAL);
@@ -149,7 +150,7 @@ public abstract class GenericProgrammableLock extends GenericSingleLock {
     }
 
     @Override
-    protected void writeMazeObjectHookXML(final XMLDataWriter writer) throws IOException {
+    protected void writeMazeObjectHookXML(final XLegacyDataWriter writer) throws IOException {
 	this.getKey().writeMazeObjectXML(writer);
     }
 

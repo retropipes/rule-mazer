@@ -8,7 +8,8 @@ package com.puttysoftware.rulemazer.maze.xml;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import com.puttysoftware.io.ZipUtilities;
+import org.retropipes.diane.fileio.utility.ZipUtilities;
+
 import com.puttysoftware.rulemazer.Application;
 import com.puttysoftware.rulemazer.CommonDialogs;
 import com.puttysoftware.rulemazer.Main;
@@ -79,7 +80,7 @@ public class XMLSaveTask extends Thread {
 		    + " file failed, probably due to illegal characters in the file name.");
 	    success = false;
 	} catch (final Exception ex) {
-	    Main.getDebug().debug(ex);
+	    Main.logError(ex);
 	}
 	Main.getApplication().showMessage(sg + " file saved.");
 	app.getMazeManager().handleDeferredSuccess(success);

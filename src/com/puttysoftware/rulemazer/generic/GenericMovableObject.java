@@ -7,6 +7,9 @@ package com.puttysoftware.rulemazer.generic;
 
 import java.io.IOException;
 
+import org.retropipes.diane.fileio.legacy.XLegacyDataReader;
+import org.retropipes.diane.fileio.legacy.XLegacyDataWriter;
+
 import com.puttysoftware.rulemazer.Application;
 import com.puttysoftware.rulemazer.Main;
 import com.puttysoftware.rulemazer.game.ObjectInventory;
@@ -14,8 +17,6 @@ import com.puttysoftware.rulemazer.maze.MazeConstants;
 import com.puttysoftware.rulemazer.objects.Empty;
 import com.puttysoftware.rulemazer.resourcemanagers.SoundConstants;
 import com.puttysoftware.rulemazer.resourcemanagers.SoundManager;
-import com.puttysoftware.xmlio.XMLDataReader;
-import com.puttysoftware.xmlio.XMLDataWriter;
 
 public abstract class GenericMovableObject extends MazeObject {
     // Fields
@@ -87,13 +88,13 @@ public abstract class GenericMovableObject extends MazeObject {
     }
 
     @Override
-    protected MazeObject readMazeObjectHookXML(final XMLDataReader reader, final int formatVersion) throws IOException {
+    protected MazeObject readMazeObjectHookXML(final XLegacyDataReader reader, final int formatVersion) throws IOException {
 	this.savedObject = Main.getApplication().getObjects().readMazeObjectXML(reader, formatVersion);
 	return this;
     }
 
     @Override
-    protected void writeMazeObjectHookXML(final XMLDataWriter writer) throws IOException {
+    protected void writeMazeObjectHookXML(final XLegacyDataWriter writer) throws IOException {
 	this.savedObject.writeMazeObjectXML(writer);
     }
 

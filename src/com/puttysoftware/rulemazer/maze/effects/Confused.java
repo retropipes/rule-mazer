@@ -5,7 +5,8 @@ Any questions should be directed to the author via email at: rulemazer@puttysoft
  */
 package com.puttysoftware.rulemazer.maze.effects;
 
-import com.puttysoftware.randomnumbers.RandomRange;
+import org.retropipes.diane.random.RandomRange;
+
 import com.puttysoftware.rulemazer.generic.DirectionConstants;
 
 public class Confused extends MazeEffect {

@@ -7,10 +7,11 @@ package com.puttysoftware.rulemazer.maze;
 
 import java.io.IOException;
 
+import org.retropipes.diane.fileio.legacy.XLegacyDataReader;
+import org.retropipes.diane.fileio.legacy.XLegacyDataWriter;
+
 import com.puttysoftware.rulemazer.Main;
 import com.puttysoftware.rulemazer.generic.MazeObject;
-import com.puttysoftware.xmlio.XMLDataReader;
-import com.puttysoftware.xmlio.XMLDataWriter;
 
 class SavedTowerState implements Cloneable {
     // Properties
@@ -49,7 +50,7 @@ class SavedTowerState implements Cloneable {
 	this.saveData[x][y][z][e] = newData;
     }
 
-    public void writeSavedTowerStateXML(final XMLDataWriter writer) throws IOException {
+    public void writeSavedTowerStateXML(final XLegacyDataWriter writer) throws IOException {
 	int x, y, z, e;
 	writer.writeInt(this.c);
 	writer.writeInt(this.r);
@@ -65,7 +66,7 @@ class SavedTowerState implements Cloneable {
 	}
     }
 
-    public static SavedTowerState readSavedTowerStateXML(final XMLDataReader reader, final int formatVersion)
+    public static SavedTowerState readSavedTowerStateXML(final XLegacyDataReader reader, final int formatVersion)
 	    throws IOException {
 	int x, y, z, e, sizeX, sizeY, sizeZ;
 	sizeX = reader.readInt();

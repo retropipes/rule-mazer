@@ -3,7 +3,7 @@ package com.puttysoftware.rulemazer.maze;
 import java.io.File;
 import java.io.IOException;
 
-import com.puttysoftware.io.DirectoryUtilities;
+import org.retropipes.diane.fileio.utility.DirectoryUtilities;
 
 public class TempDirCleanup extends Thread {
     @Override

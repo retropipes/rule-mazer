@@ -158,7 +158,7 @@ public class MazePreferencesManager {
 		    mpm.hidePrefs();
 		}
 	    } catch (final Exception ex) {
-		Main.getDebug().debug(ex);
+		Main.logError(ex);
 	    }
 	}
 

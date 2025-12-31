@@ -2,11 +2,12 @@ package com.puttysoftware.rulemazer.editor.rulesets;
 
 import java.io.IOException;
 
-import com.puttysoftware.randomnumbers.RandomRange;
+import org.retropipes.diane.fileio.legacy.XLegacyDataReader;
+import org.retropipes.diane.fileio.legacy.XLegacyDataWriter;
+import org.retropipes.diane.random.RandomRange;
+
 import com.puttysoftware.rulemazer.generic.RandomGenerationRule;
 import com.puttysoftware.rulemazer.maze.Maze;
-import com.puttysoftware.xmlio.XMLDataReader;
-import com.puttysoftware.xmlio.XMLDataWriter;
 
 public final class RuleSet implements Cloneable, RandomGenerationRule {
     // Fields
@@ -103,7 +104,7 @@ public final class RuleSet implements Cloneable, RandomGenerationRule {
 	return this.generateQuantity;
     }
 
-    public void readRuleSetXML(final XMLDataReader reader, final int rsFormat) throws IOException {
+    public void readRuleSetXML(final XLegacyDataReader reader, final int rsFormat) throws IOException {
 	this.maxQuantity = reader.readInt();
 	this.minQuantity = reader.readInt();
 	this.percentageFlag = reader.readBoolean();
@@ -116,7 +117,7 @@ public final class RuleSet implements Cloneable, RandomGenerationRule {
 	}
     }
 
-    public void writeRuleSetXML(final XMLDataWriter writer) throws IOException {
+    public void writeRuleSetXML(final XLegacyDataWriter writer) throws IOException {
 	writer.writeInt(this.maxQuantity);
 	writer.writeInt(this.minQuantity);
 	writer.writeBoolean(this.percentageFlag);

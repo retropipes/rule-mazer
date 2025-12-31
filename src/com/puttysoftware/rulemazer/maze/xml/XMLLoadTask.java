@@ -9,7 +9,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import com.puttysoftware.io.ZipUtilities;
+import org.retropipes.diane.fileio.utility.ZipUtilities;
+
 import com.puttysoftware.rulemazer.Application;
 import com.puttysoftware.rulemazer.CommonDialogs;
 import com.puttysoftware.rulemazer.Main;
@@ -96,7 +97,7 @@ public class XMLLoadTask extends Thread {
 	    CommonDialogs.showDialog(ime.getMessage());
 	    app.getMazeManager().handleDeferredSuccess(false);
 	} catch (final Exception ex) {
-	    Main.getDebug().debug(ex);
+	    Main.logError(ex);
 	}
     }
 }

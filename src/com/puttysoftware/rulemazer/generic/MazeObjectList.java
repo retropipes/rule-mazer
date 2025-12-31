@@ -9,14 +9,14 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import org.retropipes.diane.asset.image.BufferedImageIcon;
+import org.retropipes.diane.fileio.legacy.XLegacyDataReader;
+import org.retropipes.diane.fileio.legacy.XLegacyDataWriter;
 
 import com.puttysoftware.rulemazer.Main;
 import com.puttysoftware.rulemazer.maze.MazeConstants;
 import com.puttysoftware.rulemazer.maze.xml.XMLFormatConstants;
 import com.puttysoftware.rulemazer.objects.*;
 import com.puttysoftware.rulemazer.resourcemanagers.GraphicsManager;
-import com.puttysoftware.xmlio.XMLDataReader;
-import com.puttysoftware.xmlio.XMLDataWriter;
 
 public class MazeObjectList {
     // Fields
@@ -990,7 +990,7 @@ public class MazeObjectList {
 	}
     }
 
-    public MazeObject readMazeObjectXML(final XMLDataReader reader, final int formatVersion) throws IOException {
+    public MazeObject readMazeObjectXML(final XLegacyDataReader reader, final int formatVersion) throws IOException {
 	MazeObject o = null;
 	String UID = "";
 	if (formatVersion == XMLFormatConstants.XML_MAZE_FORMAT_1) {
@@ -1019,13 +1019,13 @@ public class MazeObjectList {
 		}
 	    } catch (final InstantiationException | IllegalAccessException | IllegalArgumentException
 		    | InvocationTargetException | NoSuchMethodException | SecurityException e) {
-		Main.getDebug().debug(e);
+		Main.logError(e);
 	    }
 	}
 	return null;
     }
 
-    public void readRuleSetXML(final XMLDataReader reader, final int rsFormat) throws IOException {
+    public void readRuleSetXML(final XLegacyDataReader reader, final int rsFormat) throws IOException {
 	// Read map length
 	final int mapLen = reader.readInt();
 	final boolean[] map = new boolean[mapLen];
@@ -1042,7 +1042,7 @@ public class MazeObjectList {
 	}
     }
 
-    public void writeRuleSetXML(final XMLDataWriter writer) throws IOException {
+    public void writeRuleSetXML(final XLegacyDataWriter writer) throws IOException {
 	final boolean[] map = this.generateMap();
 	// Write map length
 	writer.writeInt(map.length);

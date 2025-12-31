@@ -9,7 +9,10 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.BitSet;
 
-import com.puttysoftware.randomnumbers.RandomRange;
+import org.retropipes.diane.fileio.legacy.XLegacyDataReader;
+import org.retropipes.diane.fileio.legacy.XLegacyDataWriter;
+import org.retropipes.diane.random.RandomRange;
+
 import com.puttysoftware.rulemazer.Main;
 import com.puttysoftware.rulemazer.editor.rulesets.RuleSet;
 import com.puttysoftware.rulemazer.game.ObjectInventory;
@@ -19,8 +22,6 @@ import com.puttysoftware.rulemazer.objects.GhostAmulet;
 import com.puttysoftware.rulemazer.objects.PasswallBoots;
 import com.puttysoftware.rulemazer.resourcemanagers.SoundConstants;
 import com.puttysoftware.rulemazer.resourcemanagers.SoundManager;
-import com.puttysoftware.xmlio.XMLDataReader;
-import com.puttysoftware.xmlio.XMLDataWriter;
 
 public abstract class MazeObject
 	implements DirectionConstants, TypeConstants, ArrowTypeConstants, RandomGenerationRule {
@@ -877,7 +878,7 @@ public abstract class MazeObject
 	}
     }
 
-    public final void writeMazeObjectXML(final XMLDataWriter writer) throws IOException {
+    public final void writeMazeObjectXML(final XLegacyDataWriter writer) throws IOException {
 	writer.writeString(this.getXMLIdentifier());
 	final int cc = this.getCustomFormat();
 	if (cc == MazeObject.CUSTOM_FORMAT_MANUAL_OVERRIDE) {
@@ -890,7 +891,7 @@ public abstract class MazeObject
 	}
     }
 
-    public final MazeObject readMazeObjectXML(final XMLDataReader reader, final String ident, final int ver)
+    public final MazeObject readMazeObjectXML(final XLegacyDataReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (ident.equals(this.getXMLIdentifier())) {
 	    final int cc = this.getCustomFormat();
@@ -908,7 +909,7 @@ public abstract class MazeObject
 	}
     }
 
-    public final MazeObject readMazeObjectXML2(final XMLDataReader reader, final String ident, final int ver)
+    public final MazeObject readMazeObjectXML2(final XLegacyDataReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (ident.equals(this.getXMLIdentifier())) {
 	    final int cc = this.getCustomFormat();
@@ -926,7 +927,7 @@ public abstract class MazeObject
 	}
     }
 
-    public final MazeObject readMazeObjectXML3(final XMLDataReader reader, final String ident, final int ver)
+    public final MazeObject readMazeObjectXML3(final XLegacyDataReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (ident.equals(this.getXMLIdentifier())) {
 	    final int cc = this.getCustomFormat();
@@ -944,7 +945,7 @@ public abstract class MazeObject
 	}
     }
 
-    public final MazeObject readMazeObjectXML4(final XMLDataReader reader, final String ident, final int ver)
+    public final MazeObject readMazeObjectXML4(final XLegacyDataReader reader, final String ident, final int ver)
 	    throws IOException {
 	if (ident.equals(this.getXMLIdentifier())) {
 	    final int cc = this.getCustomFormat();
@@ -967,7 +968,7 @@ public abstract class MazeObject
      * @param writer
      * @throws IOException
      */
-    protected void writeMazeObjectHookXML(final XMLDataWriter writer) throws IOException {
+    protected void writeMazeObjectHookXML(final XLegacyDataWriter writer) throws IOException {
 	// Do nothing - but let subclasses override
     }
 
@@ -978,7 +979,7 @@ public abstract class MazeObject
      * @return
      * @throws IOException
      */
-    protected MazeObject readMazeObjectHookXML(final XMLDataReader reader, final int formatVersion) throws IOException {
+    protected MazeObject readMazeObjectHookXML(final XLegacyDataReader reader, final int formatVersion) throws IOException {
 	// Dummy implementation, subclasses can override
 	return this;
     }

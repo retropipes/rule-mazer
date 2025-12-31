@@ -8,12 +8,13 @@ package com.puttysoftware.rulemazer.editor.rulesets.xml;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.retropipes.diane.fileio.legacy.XLegacyDataReader;
+
 import com.puttysoftware.rulemazer.Application;
 import com.puttysoftware.rulemazer.CommonDialogs;
 import com.puttysoftware.rulemazer.Main;
 import com.puttysoftware.rulemazer.editor.rulesets.InvalidRuleSetException;
 import com.puttysoftware.rulemazer.editor.rulesets.RuleSetConstants;
-import com.puttysoftware.xmlio.XMLDataReader;
 
 public class XMLRuleSetLoadTask extends Thread {
     // Fields
@@ -30,15 +31,13 @@ public class XMLRuleSetLoadTask extends Thread {
     public void run() {
 	final Application app = Main.getApplication();
 	final String sg = "Rule Set";
-	try {
-	    final XMLDataReader ruleSetFile = new XMLDataReader(this.filename, "ruleset");
+	try (final XLegacyDataReader ruleSetFile = new XLegacyDataReader(this.filename, "ruleset")) {
 	    try {
 		final int magic = ruleSetFile.readInt();
 		if (magic == RuleSetConstants.MAGIC_NUMBER_2) {
 		    // Format 2 file
 		    app.getObjects().readRuleSetXML(ruleSetFile, RuleSetConstants.FORMAT_2);
 		}
-		ruleSetFile.close();
 		CommonDialogs.showTitledDialog(sg + " file loaded.", "Rule Set Picker");
 	    } catch (final FileNotFoundException fnfe) {
 		CommonDialogs.showDialog("Loading the " + sg.toLowerCase()
@@ -50,7 +49,7 @@ public class XMLRuleSetLoadTask extends Thread {
 	} catch (final InvalidRuleSetException irse) {
 	    CommonDialogs.showDialog(irse.getMessage());
 	} catch (final Exception ex) {
-	    Main.getDebug().debug(ex);
+	    Main.logError(ex);
 	}
     }
 }
